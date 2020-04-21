@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.sql.DataSource;
@@ -13,7 +14,7 @@ import java.util.Objects;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private DataSource dataSource;
@@ -22,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // Запрос пользователя для аутентификации
-        String usersQuery = "SELECT username, password, active FROM users WHERE username = ?";
+        String usersQuery = "SELECT username, password, 1 as active FROM users WHERE email = ?";
         // Запрос ролей пользователя для авторизации
         String authoritiesQuery =
                 "SELECT u.username, ur.role "
@@ -44,9 +45,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                .anyRequest().authenticated();
+//                .antMatchers("/admin/**").hasRole(Role.ROLE_ADMIN.name())
+//                .antMatchers("/user/**").hasRole(Role.ROLE_USER.name())
+//                .anyRequest().authenticated();
+                .anyRequest().permitAll();
 
         http.csrf().disable();
 

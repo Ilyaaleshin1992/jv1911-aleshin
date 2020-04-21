@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -22,11 +22,25 @@ public class User {
     @Column(length = 100)
     private String password;
 
+    @ManyToOne(targetEntity = Role.class)
+    @JoinTable(name = "user_roles",
+            joinColumns={@JoinColumn (name = "user_id" , referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private Set<Role> roles;
+
     /**
      * счета
      */
     @OneToMany(targetEntity = Account.class, mappedBy = "owner")
     private Set<Account> accounts;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public void setAccounts(Set<Account> accounts) {
         this.accounts = accounts;

@@ -23,8 +23,8 @@ public class UserMail {
         return id;
     }
 
-    public String getNameMail() {
-        return nameMail;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setNameMail(String nameMail) {

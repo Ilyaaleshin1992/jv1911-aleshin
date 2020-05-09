@@ -1,5 +1,6 @@
 package org.itstep.msk.app.controller;
 
+import org.itstep.msk.app.entity.modelFormApplication.ModelFormPassport;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String demo(Model model) {
-        ModelF form = new ModelFormPassport();
+        ModelFormPassport form = new ModelFormPassport();
         model.addAttribute("form",form);
         return "index";
     }

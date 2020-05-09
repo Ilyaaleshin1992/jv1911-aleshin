@@ -1,6 +1,7 @@
 package org.itstep.msk.app.controller.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     @GetMapping("/")
-    public String adminIndex(){
+    public String adminIndex(Model model){
         return "admin/admin";
     }
 }

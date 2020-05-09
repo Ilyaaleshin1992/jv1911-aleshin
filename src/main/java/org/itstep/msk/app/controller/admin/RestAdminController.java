@@ -5,8 +5,10 @@ package org.itstep.msk.app.controller.admin;
 import org.itstep.msk.app.entity.Account;
 import org.itstep.msk.app.entity.User;
 import org.itstep.msk.app.entity.enums.Role;
+import org.itstep.msk.app.entity.modelFormApplication.ModelFormPassport;
 import org.itstep.msk.app.entity.numberСard.ProductNumber;
 import org.itstep.msk.app.repository.UserRepository;
+import org.itstep.msk.app.repository.modelFormApplicationRepository.ModelFormPassportRepository;
 import org.itstep.msk.app.repository.СardProductNumberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,9 @@ import java.util.Set;
 
 @RestController
 public class RestAdminController {
+    @Autowired
+    ModelFormPassportRepository modelFormPassportRepository;
+
     @Autowired
     СardProductNumberRepository cRepository;
 
@@ -43,6 +48,12 @@ public class RestAdminController {
             );
         }
         return list1;
+    }
+
+    @GetMapping("/formApplications")
+    public List formApplications(){
+        List list = modelFormPassportRepository.findAll();
+        return list;
     }
 
     private class SimpleUser {

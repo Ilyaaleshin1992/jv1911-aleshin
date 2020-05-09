@@ -3,10 +3,12 @@ package org.itstep.msk.app.controller.security;
 
 import org.itstep.msk.app.entity.Account;
 import org.itstep.msk.app.entity.User;
-import org.itstep.msk.app.entity.documentsUser.ModelFormPassport;
+import org.itstep.msk.app.entity.modelFormApplication.ModelFormPassport;
 import org.itstep.msk.app.entity.enums.Role;
+import org.itstep.msk.app.entity.modelFormApplication.ModelFormPassport;
 import org.itstep.msk.app.repository.AccountRepository;
 import org.itstep.msk.app.repository.UserRepository;
+import org.itstep.msk.app.repository.modelFormApplicationRepository.ModelFormPassportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SecurityController {
+
+    @Autowired
+    ModelFormPassportRepository modelFormPassportRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -53,10 +58,7 @@ public class SecurityController {
 
     @RequestMapping(value="/personalDataForm", method= RequestMethod.POST)
     private String personalDataForm(@ModelAttribute ModelFormPassport form) {
+     modelFormPassportRepository.saveAndFlush(form);
                 return "redirect:/";
     }
-
-
-
-
 }

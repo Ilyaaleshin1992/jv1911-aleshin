@@ -11,21 +11,18 @@
           crossorigin="anonymous">
     <title>Админка</title>
 </head>
-<body style="background-image:url(
-https://www.studiopigeon.com/uploads/media/portfolio_gallery/0001/02/inside-the-signal_1060.jpeg
-);
- background-size:cover; height: 800px;">
+<body style="background-image:url(https://www.studiopigeon.com/uploads/media/portfolio_gallery/0001/02/inside-the-signal_1060.jpeg); background-size:cover; height: 800px;">
 <header th:replace="~{fragment::header(${activeSection})}"></header>
 <div class="container">
     <div class="row">
-        <div class="col-2 border-right border-primary">
+        <div class="col-2">
             <nav class="navbar p-0 bg-transparent">
                 <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "addCart">список карт</button>
                 <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "getClient">список клиентов</button>
+                <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "Applications">Список заявок</button>
             </nav>
         </div>
-        <div class="col-lg-8 " id = "carts">
-</div>
+        <div class="col-lg-8 " id = "carts"></div>
     </div>
 </div>
 <script
@@ -33,16 +30,67 @@ https://www.studiopigeon.com/uploads/media/portfolio_gallery/0001/02/inside-the-
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
 <script>
-function listOutputUser(headerName, listObject){
-    let teg = $('<ul class="list-group"></ul>');
-    teg.append($('<li class="list-group-item list-group-item-action list-group-item-dark"></li>').text(headerName));
-    for (var prop in listObject){
-        var a = listObject[prop];
-        teg.append($('<li class="list-group-item list-group-item-info"></li>').text(a.username));
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    function customerRequests(objectTabl){
+        let mainDivTeg = $('<div></div>');
+
+        mainDivTeg.append($('<li class="list-group-item list-group-item-dark"></li>').text('Список заявок...'));
+        let mainTablTeg = $('<table class="table table-sm table-info table-striped"></table>');
+        mainDivTeg.append(mainTablTeg)
+        let theadTeg = $('<thead></thead>')
+        mainTablTeg.append(theadTeg);
+        let trtegHead = $('<tr class="table-warning"></tr>');
+        theadTeg.append(trtegHead);
+        trtegHead.append($('<th scope="">#</th>'));
+        trtegHead.append($('<th scope="">имя</th>'));
+        trtegHead.append($('<th scope="">статус</th>'));
+        trtegHead.append($('<th scope="">. . . </th>'));
+
+        let tbodyTag = $('<tbody></tbody>');
+        mainTablTeg.append(tbodyTag);
+
+        for (var append in  objectTabl){
+            let tablTeg=$('<tr class=""></tr>');
+            tablTeg.append($('<th scope="row"></th>').text(objectTabl[append].id));
+            tablTeg.append($('<td class="ml-2"></td>').text(objectTabl[append].name));
+            tablTeg.append($('<td class="ml-2"></td>').text(objectTabl[append].statusApplication));
+            tablTeg.append($('<td class="ml-2"></td>').append($('<button id = "formApplications" class="btn btn-warning btn-block m=1">"Обработать"</button>')));
+            tbodyTag.append(tablTeg);
+        }
+        
+        $('#carts').empty();
+        $('#carts').append(mainDivTeg);
     }
-    $("#carts").empty();
-    $("#carts").append(teg);
-}
+
+
+
+    $("#formApplications").click(
+        function(){
+            $.ajax({
+                url: "/formApplications",
+                method: "get",
+                success: function (responses){
+                    console.log(responses);
+                }
+            });
+        }
+    );
+
+    $("#Applications").click(
+        function(){
+            $.ajax({
+                url: "/formApplications",
+                method: "get",
+                success: function (responses){
+                    objectClecchen = responses;
+                    console.log(responses);
+                    customerRequests(responses);
+                }
+            });
+        }
+    );
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 $("#getClient").click(
     function(){
@@ -52,21 +100,8 @@ $("#getClient").click(
              success: function (responses){
                 let st2 = "Список клиентов...";
                 listOutputUser(st2, responses);
-             }
-        });
-    }
-);
+             }});});
 
-function listOutput(headerName, listObject){
-    let teg = $('<ul class="list-group"></ul>');
-    teg.append($('<li class="list-group-item list-group-item-action list-group-item-dark"></li>').text(headerName));
-    for (var prop in listObject){
-        var a = listObject[prop];
-        teg.append($('<li class="list-group-item list-group-item-info"></li>').text(a.name));
-    }
-    $("#carts").empty();
-    $("#carts").append(teg);
-}
 
 $("#addCart").click(
     function(){
@@ -80,6 +115,28 @@ $("#addCart").click(
         });
     }
 );
+
+function listOutputUser(headerName, listObject){
+    let teg = $('<ul class="list-group"></ul>');
+    teg.append($('<li class="list-group-item list-group-item-action list-group-item-dark"></li>').text(headerName));
+    for (var prop in listObject){
+        var a = listObject[prop];
+        teg.append($('<li class="list-group-item list-group-item-info"></li>').text(a.username));
+    }
+    $("#carts").empty();
+    $("#carts").append(teg);
+}
+
+function listOutput(headerName, listObject){
+    let teg = $('<ul class="list-group"></ul>');
+    teg.append($('<li class="list-group-item list-group-item-action list-group-item-dark"></li>').text(headerName));
+    for (var prop in listObject){
+        var a = listObject[prop];
+        teg.append($('<li class="list-group-item list-group-item-info"></li>').text(a.name));
+    }
+    $("#carts").empty();
+    $("#carts").append(teg);
+}
 
 
 </script>

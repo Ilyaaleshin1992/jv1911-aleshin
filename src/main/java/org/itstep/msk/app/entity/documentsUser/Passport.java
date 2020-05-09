@@ -91,6 +91,22 @@ public class Passport {
         this.number = number;
     }
 
+    public Date getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public String getPlaceBirth() {
+        return placeBirth;
+    }
+
+    public void setPlaceBirth(String placeBirth) {
+        this.placeBirth = placeBirth;
+    }
+
     public int getDivisionCode() {
         return divisionCode;
     }
@@ -99,7 +115,15 @@ public class Passport {
         this.divisionCode = divisionCode;
     }
 
-       public String getWhoIssued() {
+    public Date getDateIssue() {
+        return dateIssue;
+    }
+
+    public void setDateIssue(Date dateIssue) {
+        this.dateIssue = dateIssue;
+    }
+
+    public String getWhoIssued() {
         return whoIssued;
     }
 

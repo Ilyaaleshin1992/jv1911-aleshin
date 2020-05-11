@@ -1,5 +1,6 @@
 package org.itstep.msk.app.entity;
 
+import org.itstep.msk.app.entity.documentsUser.contactInformation.ContactInformation;
 import org.itstep.msk.app.entity.enums.Role;
 
 import javax.persistence.*;
@@ -48,6 +49,10 @@ public class User {
     @OneToMany(targetEntity = Account.class, mappedBy = "owner")
     private Set<Account> accounts = new HashSet<>();
 
+    @OneToOne(targetEntity = ContactInformation.class)
+    @JoinColumn(name = "contact_informations", referencedColumnName = "id")
+    private ContactInformation contactInformation;
+
     public Integer getId() {
         return id;
     }
@@ -82,5 +87,13 @@ public class User {
 
     public void setAccounts(Set<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public ContactInformation getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(ContactInformation contactInformation) {
+        this.contactInformation = contactInformation;
     }
 }

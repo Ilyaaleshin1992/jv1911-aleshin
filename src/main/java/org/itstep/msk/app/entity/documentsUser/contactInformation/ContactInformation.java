@@ -1,5 +1,7 @@
 package org.itstep.msk.app.entity.documentsUser.contactInformation;
 
+import org.itstep.msk.app.entity.User;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -47,12 +49,11 @@ public class ContactInformation {
     @OneToMany(targetEntity = UserAddress.class, mappedBy = "contactInformation")
     private Set<UserAddress> addresses;
 
+    @OneToOne(mappedBy = "contactInformation")
+    private User user;
+
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getSurname() {
@@ -101,5 +102,13 @@ public class ContactInformation {
 
     public void setAddresses(Set<UserAddress> addresses) {
         this.addresses = addresses;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

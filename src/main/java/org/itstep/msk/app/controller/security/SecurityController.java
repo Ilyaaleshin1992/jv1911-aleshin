@@ -12,7 +12,10 @@ import org.itstep.msk.app.repository.modelFormApplicationRepository.ModelFormPas
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class SecurityController {
@@ -57,8 +60,12 @@ public class SecurityController {
 
 
     @RequestMapping(value="/personalDataForm", method= RequestMethod.POST)
-    private String personalDataForm(@ModelAttribute ModelFormPassport form) {
-     modelFormPassportRepository.saveAndFlush(form);
-                return "redirect:/";
+    private String personalDataForm(
+            @ModelAttribute ModelFormPassport form) {
+        if(form !=null) {
+            modelFormPassportRepository.saveAndFlush(form);
+            return "redirect:/";
+        }
+        return "redirect:/";
     }
 }

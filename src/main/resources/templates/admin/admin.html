@@ -17,8 +17,8 @@
     <div class="row">
         <div class="col-2">
             <nav class="navbar p-0 bg-transparent">
-                <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "addCart">список карт</button>
-                <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "getClient">список клиентов</button>
+                <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "addCart">Список карт</button>
+                <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "getClient">Список клиентов</button>
                 <button  class="navbar-brand btn p-0 m-0 btn-link btn-block" id = "Applications">Список заявок</button>
             </nav>
         </div>
@@ -30,67 +30,65 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
 <script>
-    // ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    function customerRequests(objectTabl){
-        let mainDivTeg = $('<div></div>');
-
-        mainDivTeg.append($('<li class="list-group-item list-group-item-dark"></li>').text('Список заявок...'));
-        let mainTablTeg = $('<table class="table table-sm table-info table-striped"></table>');
-        mainDivTeg.append(mainTablTeg)
-        let theadTeg = $('<thead></thead>')
-        mainTablTeg.append(theadTeg);
-        let trtegHead = $('<tr class="table-warning"></tr>');
-        theadTeg.append(trtegHead);
-        trtegHead.append($('<th scope="">#</th>'));
-        trtegHead.append($('<th scope="">имя</th>'));
-        trtegHead.append($('<th scope="">статус</th>'));
-        trtegHead.append($('<th scope="">. . . </th>'));
-
-        let tbodyTag = $('<tbody></tbody>');
-        mainTablTeg.append(tbodyTag);
-
-        for (var append in  objectTabl){
-            let tablTeg=$('<tr class=""></tr>');
-            tablTeg.append($('<th scope="row"></th>').text(objectTabl[append].id));
-            tablTeg.append($('<td class="ml-2"></td>').text(objectTabl[append].name));
-            tablTeg.append($('<td class="ml-2"></td>').text(objectTabl[append].statusApplication));
-            tablTeg.append($('<td class="ml-2"></td>').append($('<button id = "formApplications" class="btn btn-warning btn-block m=1">"Обработать"</button>')));
-            tbodyTag.append(tablTeg);
-        }
-        
-        $('#carts').empty();
-        $('#carts').append(mainDivTeg);
-    }
-
-
-
-    $("#formApplications").click(
-        function(){
-            $.ajax({
-                url: "/formApplications",
-                method: "get",
-                success: function (responses){
-                    console.log(responses);
-                }
-            });
-        }
-    );
-
-    $("#Applications").click(
+    
+     $("#Applications").click(
         function(){
             $.ajax({
                 url: "/formApplications",
                 method: "get",
                 success: function (responses){
                     objectClecchen = responses;
-                    console.log(responses);
+                    console.log(objectClecchen);
                     customerRequests(responses);
                 }
             });
         }
     );
-    // ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function func(rer){
+    window.location.href ="http://localhost:9999/admin/processingApplicationForm/" +  rer.id ;
+    
+}
+        
+    function customerRequests(objectTabl){
+    let mainDivTeg = $('<div></div>');
+
+    mainDivTeg.append($('<li class="list-group-item list-group-item-dark"></li>').text('Список заявок...'));
+    let mainTablTeg = $('<table class="table table-sm table-info table-striped"></table>');
+    mainDivTeg.append(mainTablTeg)
+    let theadTeg = $('<thead></thead>')
+    mainTablTeg.append(theadTeg);
+    let trtegHead = $('<tr class="table-warning"></tr>');
+    theadTeg.append(trtegHead);
+    trtegHead.append($('<th scope="">#</th>'));
+    trtegHead.append($('<th scope="">имя</th>'));
+    trtegHead.append($('<th scope="">статус</th>'));
+    trtegHead.append($('<th scope="">. . . </th>'));
+
+    let tbodyTag = $('<tbody></tbody>');
+    mainTablTeg.append(tbodyTag);
+
+    for (var append in  objectTabl){
+        
+        let tablTeg=$('<tr class=""></tr>');
+        tablTeg.append($('<th scope="row"></th>').text(objectTabl[append].id));
+        tablTeg.append($('<td class=""></td>').text(objectTabl[append].name));
+        tablTeg.append($('<td class=""></td>').text(objectTabl[append].statusApplication));
+        tablTeg.append($('<td class=""></td>').append($('<button onclick="func(this)" class="buttomform btn btn-outline-warning btn-block">Обработать</button>').attr('id',objectTabl[append].id)));
+        tbodyTag.append(tablTeg);
+    }
+
+    $('#carts').empty();
+    $('#carts').append(mainDivTeg);
+}
+
+
+
+
+
+   
+
+
 
 $("#getClient").click(
     function(){
@@ -137,8 +135,56 @@ function listOutput(headerName, listObject){
     $("#carts").empty();
     $("#carts").append(teg);
 }
+// $(document).on('click',".buttomform", function(){
+//     $.ajax({
+//             url: "/formApplications",
+//             method: "get",
+//             success: function (responses){
+//                 console.log(responses);
 
-
+//             }
+//         });
+// });
+// for (var append in  objectClecchen){
+      //  window.location.href ="http://localhost:9999/admin/processingApplicationForm";
+        // if(objectClecchen[append].id == rer.id){
+                        // $('#carts').empty();
+            // let mainDiv = $('<div></div>');
+            // let formTeg = $('<form action="/personalDataForm" object="form" method="post" class="border border-muted rounded p-3" style="background: repeat-y #FAFAD2;"></form>');
+            // $('#carts').append(formTeg);
+            // // mainDiv.append(formTeg);
+            // let div1 = $('<div></div>');
+            // formTeg.append(div1);
+            // div1.append($('<h1><p class="font-weight-bold text-secondary">Контактная информация</p></h1>'));
+            // div1.append($('<input id="surname" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{surname}" placeholder="Фамилия">').attr('text',objectClecchen[append].surname));
+            // div1.append($('<input id="name" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{name}" placeholder="Имя">').attr('value',objectClecchen[append].name));
+            // div1.append($('<input id="patronymic" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{patronymic}" placeholder="Отчество">').attr('value',objectClecchen[append].patronymic));
+            // div1.append($('<input id="telephone" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{telephone}" placeholder="Номер телефона">').attr('value',objectClecchen[append].Telephone));
+            // div1.append($('<input id="mail" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{mail}" placeholder="@mail">').attr('value',objectClecchen[append].mail));
+            // let div2 = $('<div></div');
+            // formTeg.append(div2);
+            // div2.append($('<h1><p class="font-weight-bold text-secondary">Паспортные данные</p></h1>'));
+            // div2.append($('<input id="dateBirth" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{dateBirth}" placeholder="Дата рождения">').attr('value',objectClecchen[append].dateBirth));
+            // div2.append($('<input id="placeBirth" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{placeBirth}" placeholder="Место рождения">').attr('value',objectClecchen[append].placeBirth));
+            // div2.append($('<input id="series" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{series}" placeholder="Серия паспорта">').attr('value',objectClecchen[append].series));
+            // div2.append($('<input id="number" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{number}" placeholder="Номер паспорта">').attr('value',objectClecchen[append].number));
+            // div2.append($('<input id="dateIssue" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{dateIssue}" placeholder="Дата выдачи паспорта">').attr('value',objectClecchen[append].dateIssue));
+            // div2.append($('<input id="whoIssued" class="form-control form-control-lg m-3 shadow" type="text" th:field="*{whoIssued}" placeholder="Кем выдан">').attr('value',objectClecchen[append].whoIssued));
+            // div2.append($('<input id="divisionCode" class="form-control form-control-lg m-3 shadow" type="text" th:field="*{divisionCode}" placeholder="Код подразделения">').attr('value',objectClecchen[append].divisionCode));            
+            // let div3 = $('<div></div');
+            // formTeg.append(div3);
+            // div2.append($('<h1><p class="font-weight-bold text-secondary">Адрес постоянной регистрации</p></h1>'));
+            // div2.append($('<input id="index" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{index}" placeholder="Индекс">').attr('value',objectClecchen[append].index));
+            // div2.append($('<input id="region" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{region}" placeholder="Регион">').attr('value',objectClecchen[append].region));
+            // div2.append($('<input id="city" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{city}" placeholder="Город">').attr('value',objectClecchen[append].city));
+            // div2.append($('<input id="street" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{street}" placeholder="Улица"></div>').attr('value',objectClecchen[append].street));
+            // div2.append($('<input id="house" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{house}" placeholder="Дом">').attr('value',objectClecchen[append].house));
+            // div2.append($('<input id="building" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{building}" placeholder="Корпус">').attr('value',objectClecchen[append].building));
+            // div2.append($('<input id="apartment" class="col form-control form-control-lg m-3 shadow" type="text" th:field="*{apartment}" placeholder="Квартира">').attr('value',objectClecchen[append].apartment));
+            // formTeg.append('<button class="btn btn-warning btn-lg my-3 shadow" type="submit">Подтвердить и отправить</button>');
+        // }
+    // }
+        
 </script>
 </body>
 </html>

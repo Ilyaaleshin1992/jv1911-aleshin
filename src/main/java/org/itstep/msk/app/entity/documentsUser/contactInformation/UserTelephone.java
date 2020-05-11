@@ -14,7 +14,7 @@ public class UserTelephone {
      * номер телефпна
      */
     @Column(name = "numbers")
-    private int number;
+    private String number;
 
     @ManyToOne(targetEntity = ContactInformation.class)
     @JoinColumn(name = "contact_information_id", referencedColumnName = "id")
@@ -24,11 +24,11 @@ public class UserTelephone {
         return id;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

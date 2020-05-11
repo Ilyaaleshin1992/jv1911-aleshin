@@ -27,7 +27,7 @@ contact_information_id INT NOT NULL REFERENCES contact_informations(id)
 
 CREATE TABLE user_telephones (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-numbers INT NOT NULL,
+numbers VARCHAR(100) NOT NULL,
 contact_information_id INT NOT NULL REFERENCES contact_informations(id)
 );
 
@@ -44,4 +44,4 @@ owner_id INT NOT NULL REFERENCES users(id),
 owner_passport_id INT REFERENCES passports(id)
 );
 
-
+ALTER TABLE users ADD COLUMN contact_informations INT REFERENCES users (id);

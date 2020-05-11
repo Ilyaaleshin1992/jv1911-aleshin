@@ -1,16 +1,17 @@
-<div action="#" th:fragment="passport(passportForm)">
-    <div class="container p-2">
-        <form  th:action="@{/personalDataForm}" th:object="${form}" method="post" class="border border-muted rounded p-3" style="background: repeat-y #FAFAD2;">
+<!--<div action="#" th:fragment="passport(passportForm)">-->
+<!--    <div class="container p-2">-->
+<!--        <form  th:action="@{/personalDataForm}" th:object="${form}" method="post" class="border border-muted rounded p-3" style="background: repeat-y #FAFAD2;">-->
+            <div action="#" th:fragment="passport(passportForm)" >
             <div>
                 <div><h1><p class="font-weight-bold text-secondary">Контактная информация</p></h1></div>
                 <div class="row">
                     <div class="col form-group">
-                        <input id="surname" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{surname}" placeholder="Фамилия">
+                        <input id="surname" class="form-control form-control-lg my-3 shadow" type="text" name="surname" placeholder="Фамилия">
                         <input id="name" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{name}" placeholder="Имя">
                         <input id="patronymic" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{patronymic}" placeholder="Отчество">
                     </div>
                     <div class="col form-group">
-                        <input id="Telephone" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{Telephone}" placeholder="Номер телефона">
+                        <input id="telephone" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{telephone}" placeholder="Номер телефона">
                         <input id="mail" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{mail}" placeholder="@mail">
                     </div>
                 </div>
@@ -49,6 +50,7 @@
             </div>
             <div><h1><p class="font-weight-bold text-secondary">Адрес фактического проживания</p></h1></div>
             <button class="btn btn-warning btn-lg my-3 shadow" type="submit"> Далее... </button>
-        </form>
-    </div>
-</div>
+            </div>
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->

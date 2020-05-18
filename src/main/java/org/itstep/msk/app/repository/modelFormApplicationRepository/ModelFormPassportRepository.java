@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ModelFormPassportRepository extends JpaRepository<ModelFormPassport, Integer> {
+    ModelFormPassport findByMail (String mail);
 }

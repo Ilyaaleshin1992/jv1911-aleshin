@@ -41,7 +41,7 @@ public class AdminController {
 
     @Autowired
     UserTelephoneRepository userTelephoneRepository;
-
+    
     @Autowired
     UserAddressRepository userAddressRepository;
 
@@ -66,25 +66,20 @@ public class AdminController {
         UserTelephone telephone = new UserTelephone();
         Passport passport = new Passport();
 
-        user.setUsername(form.getName());
+        user.setUsername(form.getMail());
         user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode("password"));
+        System.out.println(user.getUsername());
+        System.out.println(user.getRoles());
+        System.out.println(user.getPassword());
         userRepository.saveAndFlush(user);
 
-        contactInformation = new ContactInformation();
-        contactInformation.setUser(userRepository.findByUsername(user.getUsername()));
-        contactInformation.setName(form.getName());
-        contactInformation.setSurname(form.getSurname());
-        contactInformation.setPatronymic(form.getPatronymic());
-        contactInformationRepository.saveAndFlush(contactInformation);
-
         mail.setNameMail(form.getMail());
-        mail.setContactInformation(contactInformationRepository.findByUser(userRepository.findByUsername(form.getMail())));
         userMailRepository.saveAndFlush(mail);
 
         telephone.setNumber(form.getTelephone());
-        telephone.setContactInformation(contactInformationRepository.findByUser(userRepository.findByUsername(form.getMail())));
         userTelephoneRepository.saveAndFlush(telephone);
+
 
         address.setApartment(form.getApartment());
         address.setBuilding(form.getBuilding());
@@ -94,11 +89,22 @@ public class AdminController {
         address.setRegion(form.getRegion());
         address.setStatusAddress(StatusAddress.REGISTRATION);
         address.setStreet(form.getStreet());
-        address.setContactInformation(userRepository.findByUsername(form.getMail()).getContactInformation());
+        address.setOwnerMail(form.getMail());
         userAddressRepository.saveAndFlush(address);
-        
 
+        contactInformation = new ContactInformation();
+        contactInformation.getMail().add(userMailRepository.findByNameMail(form.getMail()));
+        contactInformation.getTelephone().add(userTelephoneRepository.findByNumber(form.getTelephone()));
+        contactInformation.getAddresses().add(userAddressRepository.findByOwnerMail(form.getMail()));
+        contactInformation.setUser(userRepository.findByUsername(user.getUsername()));
+        contactInformation.setName(form.getName());
+        contactInformation.setSurname(form.getSurname());
+        contactInformation.setPatronymic(form.getPatronymic());
+        contactInformationRepository.saveAndFlush(contactInformation);
 
+        ModelFormPassport modelFormPassport = modelFormPassportRepository.findByMail(form.getMail());
+        modelFormPassport.setStatusApplication(true);
+        modelFormPassportRepository.saveAndFlush(modelFormPassport);
         return "redirect:/admin/";
     }
 }

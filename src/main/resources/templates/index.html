@@ -40,9 +40,24 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <form  th:action="@{/personalDataForm}" th:object="${form}" method="post" class="border border-muted rounded p-3" style="background: repeat-y #FAFAD2;">
-    <div th:replace="~{personalDataForm::passport(${passportForm})}"></div>
-    </form>
+
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-warning collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Заполнить анкету для получения карты
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form  th:action="@{/personalDataForm}" th:object="${form}" method="post" class="border border-muted rounded p-3" style="background: repeat-y #FAFAD2;">
+                        <div th:replace="~{personalDataForm::passport(${passportForm})}"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

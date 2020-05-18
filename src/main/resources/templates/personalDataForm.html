@@ -6,7 +6,8 @@
                 <div><h1><p class="font-weight-bold text-secondary">Контактная информация</p></h1></div>
                 <div class="row">
                     <div class="col form-group">
-                        <input id="surname" class="form-control form-control-lg my-3 shadow" type="text" name="surname" placeholder="Фамилия">
+                        <input id="id" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{id}">
+                        <input id="surname" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{surname}" placeholder="Фамилия">
                         <input id="name" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{name}" placeholder="Имя">
                         <input id="patronymic" class="form-control form-control-lg my-3 shadow" type="text" th:field="*{patronymic}" placeholder="Отчество">
                     </div>

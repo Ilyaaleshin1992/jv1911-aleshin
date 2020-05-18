@@ -45,6 +45,7 @@ public class SecurityController {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
+        user.getRoles().add(Role.ROLE_ADMIN);
         userRepository.saveAndFlush(user);
         userRepository.findByUsername(user.getUsername()).getId();
         Account account = new Account();

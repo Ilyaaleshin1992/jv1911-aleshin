@@ -13,6 +13,12 @@ public class UserAddress {
     private Integer id;
 
     /**
+     * имел хозяина
+     */
+    @Column(name = "owner_mail")
+    private String ownerMail;
+
+    /**
      *индекс
      */
     @Column(name = "indexes")
@@ -72,6 +78,14 @@ public class UserAddress {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getOwnerMail() {
+        return ownerMail;
+    }
+
+    public void setOwnerMail(String ownerMail) {
+        this.ownerMail = ownerMail;
     }
 
     public int getIndex() {
